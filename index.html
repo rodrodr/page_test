@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>D-IA-Crítica | Teaching Innovation</title>
     <meta name="description" content="Innovating education for the future." />
+    <script>
+      // Suppress Tailwind CDN warning for production deployment
+      const originalWarn = console.warn;
+      console.warn = function(...args) {
+        if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com should not be used in production')) {
+          return;
+        }
+        originalWarn.apply(console, args);
+      };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,18 +51,26 @@
         text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
       }
     </style>
-  <script type="importmap">
+    <!-- 
+      Import map is kept for compatibility with some browser-based environments, 
+      but Vite will use package.json dependencies during build.
+    -->
+    <script type="importmap">
 {
   "imports": {
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
     "react/": "https://aistudiocdn.com/react@^19.2.0/",
     "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/"
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
   }
 }
 </script>
 </head>
   <body class="text-gray-800 antialiased bg-white">
     <div id="root"></div>
+    <!-- Main entry point for Vite build -->
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>
